@@ -1,7 +1,7 @@
 module.exports = {
-    FB_PAGE_TOKEN: '',
-    FB_VERIFY_TOKEN: '',
-    API_AI_CLIENT_ACCESS_TOKEN: '',
-    FB_APP_SECRET: '',
-    SERVER_URL: "",
+    FB_PAGE_TOKEN: 'EAAP7vyXH7IMBAJ8r6r0hUEoD9aMH3LV9B3VEpR1OcpNWobxJslMid5mlXsIoq9yGauOjZA4EAWSTuKgoI46NuCmD6FWLJwlrU27HNJvhLZAQ0odqLJFUZAuxmh0XuYUTbWl4O3rqVnOCWfwVfyshrjTJqPiOASO6lqVe9CF2wZDZD',
+    FB_VERIFY_TOKEN: 'Password;Cortex11',
+    API_AI_CLIENT_ACCESS_TOKEN: 'f3d1c2c7200b44e193d05cf5986261e6',
+    FB_APP_SECRET: '7a167b635f0b91ed470d5a37aa542130',
+    SERVER_URL: 'https://sleepy-brushlands-83824.herokuapp.com/',
 };
