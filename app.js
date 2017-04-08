@@ -286,6 +286,7 @@ function handleApiAiResponse(sender, response) {
 	let parameters = response.result.parameters;
 
 	sendTypingOff(sender);
+	console.log(action);
 
 	if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 		let timeoutInterval = 1100;
@@ -339,6 +340,7 @@ function sendToApiAi(sender, text) {
 
 	apiaiRequest.on('response', (response) => {
 		if (isDefined(response.result)) {
+			console.log('api ia send a response');
 			handleApiAiResponse(sender, response);
 		}
 	});
