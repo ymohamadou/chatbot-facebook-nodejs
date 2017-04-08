@@ -884,7 +884,7 @@ function verifyRequestSignature(req, res, buf) {
 }
 
 function sendEmail(subject, content){
-	console.log(sender + ' ' + content);
+	console.log(subject + ' ' + content);
 }
 
 function isDefined(obj) {
