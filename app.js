@@ -171,8 +171,28 @@ function handleEcho(messageId, appId, metadata) {
 	console.log("Received echo for message %s and app %d with metadata %s", messageId, appId, metadata);
 }
 
-function handleApiAiAction(sender, action, responseText, contexts, parameters) {
+function handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion) {
 	switch (action) {
+		case 'detailed-application':
+			//A better way
+			if (!actionCompletion) {
+				let phone_number = parameters.phone-number;
+				let user_name = parameters.user-name;
+				let previous_job = parameters.previous-job;
+				let year_of_experience = parameters.years-of-experience;
+				let job_vacancy = 'not clearly defined';
+				if (contexts[0].name === 'job_application') job_vacancy = contexts[0].parameters['job-vacancy'];
+
+				let emailContent = 'A new job enquiery from ' + user_name + ' for the job: ' + job_vacancy +
+							',<br> Previous job position: ' + previous_job + '.' +
+							',<br> Years of experience: ' + year_of_experience + '.' +
+							',<br> Phone number: ' + phone_number + '.';
+				
+				sendEmail('New job application', emailContent);
+			}
+			
+			sendTextMessage(sender, responseText);
+			break;
 		case 'job-enquiry':
 			let replies = [
 				{
@@ -284,9 +304,9 @@ function handleApiAiResponse(sender, response) {
 	let action = response.result.action;
 	let contexts = response.result.contexts;
 	let parameters = response.result.parameters;
+	let actionCompletion = response.result.actionIncomplete;
 
 	sendTypingOff(sender);
-	console.log(action);
 
 	if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 		let timeoutInterval = 1100;
@@ -317,8 +337,7 @@ function handleApiAiResponse(sender, response) {
 		console.log('Unknown query' + response.result.resolvedQuery);
 		sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
 	} else if (isDefined(action)) {
-		console.log('handleling actions');
-		handleApiAiAction(sender, action, responseText, contexts, parameters);
+		handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion);
 	} else if (isDefined(responseData) && isDefined(responseData.facebook)) {
 		try {
 			console.log('Response as formatted message' + responseData.facebook);
@@ -341,7 +360,6 @@ function sendToApiAi(sender, text) {
 
 	apiaiRequest.on('response', (response) => {
 		if (isDefined(response.result)) {
-			console.log('api ia send a response');
 			handleApiAiResponse(sender, response);
 		}
 	});
@@ -861,6 +879,10 @@ function verifyRequestSignature(req, res, buf) {
 			throw new Error("Couldn't validate the request signature.");
 		}
 	}
+}
+
+function sendEmail(subject, content){
+	console.log(sender + ' ' + content);
 }
 
 function isDefined(obj) {
