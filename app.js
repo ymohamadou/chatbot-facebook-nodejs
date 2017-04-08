@@ -176,10 +176,10 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 		case 'detailed-application':
 			//A better way
 			if (!actionCompletion) {
-				let phone_number = parameters.phone-number;
-				let user_name = parameters.user-name;
-				let previous_job = parameters.previous-job;
-				let year_of_experience = parameters.years-of-experience;
+				let phone_number = parameters['phone-number'];
+				let user_name = parameters['user-name'];
+				let previous_job = parameters['previous-job'];
+				let year_of_experience = parameters['years-of-experience'];
 				let job_vacancy = 'not clearly defined';
 				if (contexts[0].name === 'job_application') job_vacancy = contexts[0].parameters['job-vacancy'];
 
