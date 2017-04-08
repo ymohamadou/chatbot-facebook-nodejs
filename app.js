@@ -191,6 +191,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 					"payload":"Not interested"
 				}
 			];
+			console.log(replies);
 			sendQuickReply(sender, responseText, replies);
 			break;
 
