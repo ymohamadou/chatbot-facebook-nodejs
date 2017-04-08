@@ -27,8 +27,6 @@ if (!config.SERVER_URL) { //used for ink to static files
 	throw new Error('missing SERVER_URL');
 }
 
-
-
 app.set('port', (process.env.PORT || 5000))
 
 //verify request came from facebook
@@ -46,9 +44,6 @@ app.use(bodyParser.urlencoded({
 
 // Process application/json
 app.use(bodyParser.json())
-
-
-
 
 const apiAiService = apiai(config.API_AI_CLIENT_ACCESS_TOKEN, {
 	language: "en",
@@ -83,8 +78,6 @@ app.post('/webhook/', function (req, res) {
 	var data = req.body;
 	console.log(JSON.stringify(data));
 
-
-
 	// Make sure this is a page subscription
 	if (data.object == 'page') {
 		// Iterate over each entry
@@ -118,10 +111,6 @@ app.post('/webhook/', function (req, res) {
 		res.sendStatus(200);
 	}
 });
-
-
-
-
 
 function receivedMessage(event) {
 
@@ -184,6 +173,27 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 	switch (action) {
+		case 'job-inquiry':
+			let replies = [
+				{
+					"content_type":"text",
+					"title":"Accountant",
+					"payload":"Accountant"
+				},
+				{
+					"content_type":"text",
+					"title":"Sales",
+					"payload":"Sales"
+				},
+				{
+					"content_type":"text",
+					"title":"Not interested",
+					"payload":"Not interested"
+				}
+			];
+			sendQuickReply(sender, responseText, replies);
+			break;
+
 		default:
 			//unhandled action, just send back the text
 			sendTextMessage(sender, responseText);
