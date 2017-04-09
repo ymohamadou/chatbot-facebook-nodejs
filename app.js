@@ -173,6 +173,31 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion) {
 	switch (action) {
+		case 'faq-delivery':
+			sendTextMessage(sender, responseText);
+			sendTypingOn(sender);
+			//Ask what the user want to do next
+			setTimeout(function(){
+				let buttons = [
+					{
+						type:"web_url",
+						url:"https://www.google.com",
+						title:"Track my order"
+					},
+					{
+						type:"phone_number",
+						title:"Track my order",
+						payload:"+33611315640"
+					},
+					{
+						type:"postback",
+						title:"Keep on chating",
+						payload:"CHAT"
+					}
+				];
+				sendButtonMessage(sender, 'What would you like to do next ?')
+			}, 3000);
+			break;
 		case 'detailed-application':
 			//A better way
 			if (!actionCompletion) {
