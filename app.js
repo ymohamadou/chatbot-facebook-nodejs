@@ -173,9 +173,6 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion) {
 	switch (action) {
-		case 'get-started':{
-			greetUserText(sender);
-		}
 		case 'faq-delivery':
 			sendTextMessage(sender, responseText);
 			sendTypingOn(sender);
@@ -778,6 +775,7 @@ function receivedPostback(event) {
 	var payload = event.postback.payload;
 
 	switch (payload) {
+		case 'FACEBOOK_WELCOME':
 		case 'GET_STARTED':
 			// Show the greetings
 			greetUserText(senderID);
