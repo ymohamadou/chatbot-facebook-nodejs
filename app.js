@@ -195,7 +195,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 						payload:"CHAT"
 					}
 				];
-				sendButtonMessage(sender, 'What would you like to do next ?')
+				sendButtonMessage(sender, 'What would you like to do next ?', buttons);
 			}, 3000);
 			break;
 		case 'detailed-application':
