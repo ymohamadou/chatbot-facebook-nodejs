@@ -181,7 +181,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 			if (!actionCompletion){
 				let request = require('request');
 				request({
-					url: 'api.openweathermap.org/data/2.5/weather',
+					url: 'http://api.openweathermap.org/data/2.5/weather',
 					qs: {
 						appid: config.WEATHER_API_KEY,
 						q: parameters['geo-city']
