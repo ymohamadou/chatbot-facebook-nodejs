@@ -712,7 +712,7 @@ function greetUserText(userId) {
 				console.log("FB user: %s %s, %s",
 					user.first_name, user.last_name, user.gender);
 
-				sendTextMessage(userId, "Welcome " + user.first_name + '!');
+				sendTextMessage(userId, "Welcome " + user.first_name + '! I can ask frequently ask question and I perform Job interviews. What can I help with?');
 			} else {
 				console.log("Cannot get data for fb user with id",
 					userId);
@@ -775,6 +775,10 @@ function receivedPostback(event) {
 	var payload = event.postback.payload;
 
 	switch (payload) {
+		case 'GET_STARTED':
+			// Show the greetings
+			greetUserText(senderID);
+			break;
 		case 'JOB_APPLY':
 			// Get feedback with a new job
 			sendToApiAi(senderID, 'job openings');
