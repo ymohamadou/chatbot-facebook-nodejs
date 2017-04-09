@@ -181,14 +181,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 			if (!actionCompletion){
 				let request = require('request');
 				request({
-					url: 'api.openweathermap.org/data/2.5/weather/',
+					url: 'api.openweathermap.org/data/2.5/weather',
 					qs: {
 						appid: config.WEATHER_API_KEY,
 						q: parameters['geo-city']
 					}
 				}, function(error, response, body){
 					if (error){
-						console.log(response.error);						
+						console.log(error);						
 					}
 					else {
 						let weather = JSON.parse(response);
