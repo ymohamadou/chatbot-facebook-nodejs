@@ -191,7 +191,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 						console.log(error);						
 					}
 					else {
-						let weather = JSON.parse(response);
+						console.log(response)
+						let weather = JSON.parse(body);
 						if (weather.hawOwnProperty('weather')){
 							let reply = `${responseText} ${weather['weather'][0]['description']}`;
 							sendTextMessage(sender, reply);
