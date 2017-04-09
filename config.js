@@ -4,4 +4,5 @@ module.exports = {
     API_AI_CLIENT_ACCESS_TOKEN: 'f3d1c2c7200b44e193d05cf5986261e6',
     FB_APP_SECRET: '7a167b635f0b91ed470d5a37aa542130',
     SERVER_URL: 'https://sleepy-brushlands-83824.herokuapp.com/',
+    WEATHER_API_KEY: '81b046db34bd9749d15df3f7bea3cf8a'
 };

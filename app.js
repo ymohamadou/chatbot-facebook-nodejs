@@ -27,6 +27,10 @@ if (!config.SERVER_URL) { //used for ink to static files
 	throw new Error('missing SERVER_URL');
 }
 
+if (!config.WEATHER_API_KEY) { //used for ink to static files
+	throw new Error('missing SERVER_URL');
+}
+
 app.set('port', (process.env.PORT || 5000))
 
 //verify request came from facebook
@@ -172,7 +176,36 @@ function handleEcho(messageId, appId, metadata) {
 }
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion) {
-	switch (action) {
+	switch (action) {		
+		case 'get-current-weather':
+			if (!actionCompletion){
+				let request = require('request');
+				request({
+					url: 'api.openweathermap.org/data/2.5/weather/',
+					qs: {
+						appid:confi.WEATHER_API_KEY,
+						q: parameters['geo-city']
+					}
+				}, function(error, response, body){
+					if (error){
+						console.log(response.error);						
+					}
+					else {
+						let weather = JSON.parse(response);
+						if (weather.hawOwnProperty('weather')){
+							let reply = `${responseText} ${weather['weather'][0]['description']}`;
+							sendTextMessage(sender, reply);
+						} else {
+							sendTextMessage(sender, `No weather forecast available for ${parameters['geo-city']}`);
+						}
+
+						console.log(response.statusCode, body);
+					}
+				})
+			} else {
+				sendTextMessage(sender, responseText);
+			}
+			break;
 		case 'faq-delivery':
 			sendTextMessage(sender, responseText);
 			sendTypingOn(sender);
