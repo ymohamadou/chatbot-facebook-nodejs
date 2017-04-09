@@ -180,19 +180,19 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 			setTimeout(function(){
 				let buttons = [
 					{
-						type:"web_url",
-						url:"https://www.google.com",
-						title:"Track my order"
+						type:'web_url',
+						url:'https://www.google.com',
+						title:'Track my order'
 					},
 					{
-						type:"phone_number",
-						title:"Track my order",
-						payload:"+33611315640"
+						type:'phone_number',
+						title:'Call us',
+						payload:'+33611315640'
 					},
 					{
-						type:"postback",
-						title:"Keep on chating",
-						payload:"CHAT"
+						type:'postback',
+						title:'Keep on chating',
+						payload:'CHAT'
 					}
 				];
 				sendButtonMessage(sender, 'What would you like to do next ?', buttons);
