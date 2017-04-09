@@ -173,6 +173,9 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters, actionCompletion) {
 	switch (action) {
+		case 'get-started':{
+			greetUserText(sender);
+		}
 		case 'faq-delivery':
 			sendTextMessage(sender, responseText);
 			sendTypingOn(sender);
