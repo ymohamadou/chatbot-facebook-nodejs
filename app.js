@@ -116,6 +116,12 @@ app.post('/webhook/', function (req, res) {
 	}
 });
 
+
+app.post('/apiaiwebhook/', function (req, res) {
+	var data = req.body;
+	console.log(JSON.stringify(data));
+});
+
 function receivedMessage(event) {
 
 	var senderID = event.sender.id;
