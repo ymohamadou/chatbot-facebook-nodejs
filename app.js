@@ -240,11 +240,13 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 			break;
 		case 'detailed-application':
 			//A better way
+			let phone_number = parameters['phone-number'];
+			let user_name = parameters['user-name'];
+			let previous_job = parameters['previous-job'];
+			let year_of_experience = parameters['years-of-experience'];
+
 			if (!actionCompletion) {
-				let phone_number = parameters['phone-number'];
-				let user_name = parameters['user-name'];
-				let previous_job = parameters['previous-job'];
-				let year_of_experience = parameters['years-of-experience'];
+				
 				let job_vacancy = 'not clearly defined';
 				if (contexts[0].name === 'job_application') {
 					job_vacancy = contexts[0].parameters['job-vacancy'];
@@ -255,10 +257,30 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters, a
 							',<br> Years of experience: ' + year_of_experience + '.' +
 							',<br> Phone number: ' + phone_number + '.';
 				
-				sendEmail('New job application', emailContent);
-			}
-			
-			sendTextMessage(sender, responseText);
+				sendEmail('New job application', emailContent);				
+				sendTextMessage(sender, responseText);
+			} else {
+				if (phone_number === '' && user_name !== '' && previous_job !== '' && year_of_experience === ''){
+					let replies = [
+						{
+							'content_type':'text',
+							'title':'Less than 1 year',
+							'payload':'Less than 1 year'
+						},
+						{
+							'content_type':'text',
+							'title':'Less than 10 years',
+							'payload':'Less than 10 years'
+						},
+						{
+							'content_type':'text',
+							'title':'More than 10 years',
+							'payload':'More than 10 years'
+						}
+					];
+					sendQuickReply(sender, responseText, replies);
+				}
+			}			
 			break;
 		case 'job-enquiry':
 			let replies = [
